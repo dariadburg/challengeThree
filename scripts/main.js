@@ -10,7 +10,7 @@ var map = new mapboxgl.Map({
 
     //Positioning the map on a specific longitude and latitude (Kennedy Space Center, Cape Canaveral, Florida) and zooming in
     center: [-80.60, 28.590],
-    zoom: 10,
+    zoom: 8,
 })
 
 map.addControl(new mapboxgl.NavigationControl())
