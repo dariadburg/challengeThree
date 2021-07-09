@@ -1,3 +1,5 @@
+// API NO.1
+
 // Setting API token
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGFyaWFkYnVyZyIsImEiOiJja3F2aDNmMm8wZWI0Mm9vNml1Z3Q1MHllIn0.vjzbn7HED8t350Vc_en9HA';
 
@@ -10,10 +12,9 @@ var map = new mapboxgl.Map({
 
     //Positioning the map on a specific longitude and latitude (Kennedy Space Center, Cape Canaveral, Florida) and zooming in
     center: [-80.60, 28.590],
-    zoom: 8,
+    zoom:9,
 })
 
-map.addControl(new mapboxgl.NavigationControl())
 
 // "LANDING" POP-UP
 // Creating a pop-up for the map
@@ -58,3 +59,39 @@ parkMarker.style.height = '20px';
 
 // Adding a market for the pop-up based on longitude and latitude coordinates
 var markerPark = new mapboxgl.Marker(parkMarker).setLngLat([-80.70, 28.540]).setPopup(parkPopup).addTo(map);
+
+
+// API NO.2
+
+function getAPIdata() {
+
+    // Construct request
+    var request = 'https://api.openweathermap.org/data/2.5/weather?appid=dcd2f071dd8ed4e306520804e7dd71aa&q=cape%20canaveral';
+
+    // Get current weather
+    fetch(request)
+
+    // Parse response to JSON format
+    .then(
+        function(response) {
+            console.log(response);
+            return response.json();
+        }
+    )
+
+    // Do something with the response
+    .then(
+        function(response) {
+            // Show full JSON object
+            console.log(response);
+
+            var degC = Math.floor(response.main.temp - 273.25);
+            document.getElementById('weather').innerHTML = response.name+ '<br>' + degC + ' C <br>';
+            document.getElementById('weather').innerHTML += response.weather[0].description;
+        }
+    )
+}
+
+document.getElementById('getWeather').onclick = function(){
+	getAPIdata();
+};
